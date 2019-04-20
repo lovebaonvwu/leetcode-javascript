@@ -34,3 +34,39 @@ var addTwoNumbers = function(l1, l2) {
 
     return head.next;
 };
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} l1
+ * @param {ListNode} l2
+ * @return {ListNode}
+ */
+var addTwoNumbers = function(l1, l2) {
+    return addTwo(l1, l2, 0);
+};
+
+function addTwo(l1, l2, carry) {
+    if (!l1 && !l2 && !carry) {
+        return null;
+    }
+
+    let v1 = l1 ? l1.val : 0;
+    let v2 = l2 ? l2.val : 0;
+
+    let sum = v1 + v2 + carry;
+    carry = Math.floor(sum / 10);
+
+    let node = l1 ? l1 : l2 ? l2 : new ListNode(carry);
+
+    node.val = sum % 10;
+
+    node.next = addTwo(l1 ? l1.next : null, l2 ? l2.next : null, carry);
+
+    return node;
+}
